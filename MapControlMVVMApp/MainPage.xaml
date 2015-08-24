@@ -1,0 +1,43 @@
+﻿<Page
+    x:Class="MapControlMVVMApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MapControlMVVMApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:Media="using:Microsoft.Xaml.Interactions.Media" 
+    xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
+    DataContext="{Binding Main, Source={StaticResource Locator}}">
+    
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Find Me!" Icon="Target" Command="{Binding GetMyLocationCommand}" />
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Maps:MapControl  x:Name="MainMap" Center="{Binding MyLocation}" >
+            <StackPanel  x:Name="MyLocationPushpin"  
+                Visibility="Collapsed"
+				Maps:MapControl.NormalizedAnchorPoint="0.5,1" 
+				Maps:MapControl.Location="{Binding MyLocation.Coordinate.Point}" 
+				Width="Auto" Height="Auto"  >
+                <Grid x:Name="ContentGrid"  Height="Auto" Width="Auto">
+
+                    <Rectangle Fill="#FFFF4444" Height="Auto" Width="Auto" RadiusX="3" RadiusY="3"/>
+
+                    <StackPanel HorizontalAlignment="Center" Margin="5" >
+                        <TextBlock x:Name="LocationName"  Text="Here I Am!" FontSize="14" Foreground="White" HorizontalAlignment="Center" />
+                        <Grid x:Name="MainPushPinDetails" Height="0">
+                            <TextBlock x:Name="AddressText" Text="I'm seriously here!" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </StackPanel>
+
+                </Grid>
+                <Path Data="M33.4916,35.3059 L42.1937,35.3059 L38.1973,40.6036 z" Fill="#FFFF4444" HorizontalAlignment="Center" Height="6.302" Margin="0,-1,0,0" Stretch="Fill" UseLayoutRounding="False" Width="9.702"/>
+            </StackPanel>
+        </Maps:MapControl>
+    </Grid>
+</Page>
